@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(p0: View) {
         if (p0.id == R.id.btn_set_value) {
             val name = StringBuilder()
-            for (i in 0..3) {
+            for (i in 0..2) {
                 name.append(names[i]).append("\n")
             }
             tvText.text = name.toString()
