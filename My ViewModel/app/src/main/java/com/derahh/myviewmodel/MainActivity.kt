@@ -3,12 +3,14 @@ package com.derahh.myviewmodel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: WeatherAdapter
+    private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,6 +21,17 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = adapter
+
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+
+        btnCity.setOnClickListener {
+            val city = editCity.text.toString()
+
+            if (city.isEmpty()) return@setOnClickListener
+
+            mainViewModel.setWeather(city)
+            showLoading(true)
+        }
     }
 
     private fun showLoading(state: Boolean) {
